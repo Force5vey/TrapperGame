@@ -50,7 +50,9 @@ public class GameEngine
         // Graphics.DisplayIntroNarrative(scanner, 80,
         // Graphics.GetIntroNarrative());
 
-        System.out.println("'c' to continue..."); // make this enter to continue
+        System.out.println("'c' to continue..."); // make this enter to
+                                                  // continue, needs to
+                                                  // recognize 'any' key
         scanner.nextLine();
 
         StartGameLoop();
