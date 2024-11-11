@@ -52,7 +52,7 @@ public class HomeActionsHandler
                         System.out.print("Processing Game");
                         for (int i = 0; i < player.ProcessDuration; i++)
                         {
-                            System.out.print(".");
+                            System.out.print(" .");
                             try
                             {
                                 Thread.sleep(1000);
@@ -65,7 +65,19 @@ public class HomeActionsHandler
                         player.ProcessAnimal();
                     } else
                     {
-                        System.out.println("No animal to process...");
+                        System.out.print("No animal to process");
+                        for (int i = 0; i < 5; i++)
+                        {
+                            System.out.print(" .");
+
+                            try
+                            {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e)
+                            {
+                                e.printStackTrace();
+                            }
+                        }
                     }
 
                     break;
@@ -74,7 +86,7 @@ public class HomeActionsHandler
 
                     for (int i = 0; i < player.RestDuration; i++)
                     {
-                        System.out.print(".");
+                        System.out.print(" .");
 
                         player.Rest();
 

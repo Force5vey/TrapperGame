@@ -1,8 +1,8 @@
-package utils;
+package controllers;
 
 import java.util.Scanner;
+import utils.*;
 import models.*;
-import controllers.*;
 
 public class GameEngine
 {
@@ -15,6 +15,7 @@ public class GameEngine
     private Player player;
 
     private HomeActionsHandler homeActionsHandler;
+    private TravelActionsHandler travelActionsHandler;
 
     public GameEngine()
     {
@@ -36,6 +37,7 @@ public class GameEngine
         traps[2].TrapsIndex = 2;
 
         homeActionsHandler = new HomeActionsHandler(scanner, player, traps);
+        travelActionsHandler = new TravelActionsHandler(scanner, player, traps);
 
     }
 
@@ -69,7 +71,7 @@ public class GameEngine
                 isRunning = homeActionsHandler.PerformHomeActions();
                 break;
             case Traveling:
-                isRunning = TravelingActions();
+                isRunning = travelActionsHandler.TravelingActions();
                 break;
             case WhisperingStone:
                 break;
@@ -82,11 +84,4 @@ public class GameEngine
 
         }
     }
-
-    private boolean TravelingActions()
-    {
-
-        return true;
-    }
-
 }
