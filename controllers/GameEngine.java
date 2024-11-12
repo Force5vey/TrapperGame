@@ -35,7 +35,7 @@ public class GameEngine {
         gameState = GameState.HOME;
     }
 
-    public void start() {
+    public void Start() {
         while (isRunning) {
             Graphics.clearScreen();
             Graphics.printStatusBar(player);

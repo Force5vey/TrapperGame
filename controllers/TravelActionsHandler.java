@@ -18,7 +18,7 @@ public class TravelActionsHandler {
     }
 
     public boolean travelingActions() {
-        Trap destinationTrap = trapManager.getTrapByIndex(player.TrapDestinationIndex);
+        Trap destinationTrap = trapManager.getTrapByIndex(player.trapDestinationIndex);
 
         if (destinationTrap == null) {
             System.out.println("Invalid travel destination.");
@@ -36,7 +36,7 @@ public class TravelActionsHandler {
             player.TraveledDistance = traveledDistance;
 
             if (i % 100 == 0) {
-                System.out.println("Travel Distance: [ " + player.TraveledDistance + " / " + distanceToTravel + " ]");
+                System.out.println("Travel Distance: [ " + player.traveledDistance + " / " + distanceToTravel + " ]");
                 System.out.println();
                 System.out.print(dots);
 
