@@ -21,7 +21,47 @@ public class TravelActionsHandler
 
     public boolean TravelingActions()
     {
-        System.out.println("You are traveling...");
+
+        // traveling needs to count steps, and compare to distance to
+        // destination.
+        // player destination is the enum of destination, need an index to the
+        // trap[] to better acces
+        // instance data.
+        // Way too many different ways player and traps is storing and setting
+        // distance to travel.
+
+        int distanceToTravel = traps[player.TrapDestinationIndex].GetDistanceFromHome();
+        int traveledDistance = 0;
+
+        String dots = "You are traveling .";
+
+        for (int i = 0; i <= distanceToTravel; i++)
+        {
+            Graphics.ClearScreen();
+            Graphics.PrintStatusBar(player);
+
+            player.TraveledDistance = traveledDistance;
+
+            if (i % 100 == 0)
+            {
+                System.out.println("Travel Distance: [ " + player.TraveledDistance + " / " + player.TotalTravelDistance
+                        + " ]  |  ");
+                System.out.println();
+                System.out.print(dots);
+
+                dots += " .";
+
+                try
+                {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+
+            traveledDistance++;
+        }
 
         int userInput = scanner.nextInt();
 

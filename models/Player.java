@@ -1,8 +1,5 @@
 package models;
 
-import utils.*;
-import controllers.*;
-
 public class Player
 {
     // Default Values
@@ -26,6 +23,9 @@ public class Player
     // Properties
     public int RestDuration = 5;
     public int ProcessDuration = 5;
+    public int TrapDestinationIndex = 0;
+    public int TraveledDistance = 0;
+    public int TotalTravelDistance = 0;
 
     public static enum Location {
         Home, BlackRiverBend, WhisperingStone, RavenFelds, Traveling
@@ -56,6 +56,11 @@ public class Player
     /*
      * ============ PLAYER ACTIONS ===============
      */
+
+    public void SetTotalTravelDistance(int distanceFromHome)
+    {
+        this.TotalTravelDistance = distanceFromHome;
+    }
 
     public Animal GetCurrentAnimal()
     {

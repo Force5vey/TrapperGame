@@ -1,8 +1,5 @@
 package models;
 
-import utils.*;
-import controllers.*;
-
 public class Trap
 {
     private final int DISTANCE_BLACK = 1500, DISTANCE_WHISPERING = 1000, DISTANCE_RAVEN = 600;

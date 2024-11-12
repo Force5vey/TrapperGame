@@ -122,6 +122,8 @@ public class HomeActionsHandler
 
                         player.SetCurrentLocation(Player.Location.Traveling);
                         player.SetDestination(traps[userSubSelection].GetTrapLocation());
+                        player.TrapDestinationIndex = userSubSelection;
+                        player.SetTotalTravelDistance(traps[userSubSelection].GetDistanceFromHome());
                         atHome = false;
                     }
                     break;

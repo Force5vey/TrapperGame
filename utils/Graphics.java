@@ -20,7 +20,7 @@ public class Graphics
         System.out.print("Water: [ " + player.GetCurrentWater() + " / " + player.GetMaxWater() + " ]  |  ");
         System.out.print("Food: [ " + player.GetCurrentFood() + " / " + player.GetMaxFood() + " ]  |  ");
         System.out.print("Ammo: [ " + player.GetCurrentAmmo() + " / " + player.GetMaxAmmo() + " ]  |  ");
-        System.out.print("\n");
+       System.out.print("\n");
         System.out.println("----------------------------------------------------------------------------------------");
     }
 
