@@ -1,57 +1,48 @@
 package models;
 
-public class Trap
-{
-    private final int DISTANCE_BLACK = 1500, DISTANCE_WHISPERING = 1000, DISTANCE_RAVEN = 600;
+public class Trap {
 
-    private Player.Location trapLocation;
+    private Location trapLocation;
     private int distanceFromHome;
-    public int TrapsIndex;
+    private boolean isSet = false;
 
-    //
-    // Constructor
-    public Trap(Player.Location trapLocation)
-    {
+    public Trap(Location trapLocation) {
         this.trapLocation = trapLocation;
-        SetDistanceFromHome(this.trapLocation);
+        this.distanceFromHome = setDistanceFromHome(trapLocation);
     }
 
-    //
-    // Methods
-    private void SetDistanceFromHome(Player.Location trapLocation)
-    {
-        int distance;
-        switch (trapLocation) {
-        case BlackRiverBend -> distance = DISTANCE_BLACK;
-        case WhisperingStone -> distance = DISTANCE_WHISPERING;
-        case RavenFelds -> distance = DISTANCE_RAVEN;
-        default -> distance = 0;
-        }
-
-        this.distanceFromHome = distance;
+    private int setDistanceFromHome(Location trapLocation) {
+        return switch (trapLocation) {
+            case BlackRiverBend -> 1500;
+            case WhisperingStone -> 1000;
+            case RavenFelds -> 600;
+            default -> 0;
+        };
     }
 
-    public int GetDistanceFromHome()
-    {
-        return this.distanceFromHome;
+    public int getDistanceFromHome() {
+        return distanceFromHome;
     }
 
-    public Player.Location GetTrapLocation()
-    {
-        return this.trapLocation;
+    public Location getTrapLocation() {
+        return trapLocation;
     }
 
-    public String GetTrapName()
-    {
-        String trapName;
-        switch (this.trapLocation) {
-        case BlackRiverBend -> trapName = "Black River Bend";
-        case RavenFelds -> trapName = "RavenFelds";
-        case WhisperingStone -> trapName = "Whispering Stone";
-        default -> trapName = "None";
-        }
-
-        return trapName;
+    public String getTrapName() {
+        return switch (trapLocation) {
+            case BlackRiverBend -> "Black River Bend";
+            case RavenFelds -> "Raven Felds";
+            case WhisperingStone -> "Whispering Stone";
+            default -> "Unknown Location";
+        };
     }
 
+    public boolean isSet() {
+        return isSet;
+    }
+
+    public void setTrap(boolean set) {
+        this.isSet = set;
+    }
 }
+

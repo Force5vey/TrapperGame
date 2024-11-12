@@ -1,89 +1,76 @@
 package controllers;
 
 import java.util.Scanner;
-import utils.*;
-import models.*;
+import models.Player;
+import models.Location;
+import utils.Graphics;
 
-public class GameEngine
-{
+public class GameEngine {
+
     private Scanner scanner;
+    private boolean isRunning = true;
 
-    // Game status
-    static boolean isRunning = true;
-
-    private Trap[] traps;
     private Player player;
-
+    private TrapManager trapManager;
     private HomeActionsHandler homeActionsHandler;
     private TravelActionsHandler travelActionsHandler;
+    private InputHandler inputHandler;
 
-    public GameEngine()
-    {
-        InitializeGame();
+    private enum GameState { HOME, TRAVELING, COMBAT }
+    private GameState gameState;
+
+    public GameEngine() {
+        initializeGame();
     }
 
-    private void InitializeGame()
-    {
+    private void initializeGame() {
         scanner = new Scanner(System.in);
-
         player = new Player();
-        traps = new Trap[3];
-
-        traps[0] = new Trap(Player.Location.BlackRiverBend);
-        traps[0].TrapsIndex = 0;
-        traps[1] = new Trap(Player.Location.RavenFelds);
-        traps[1].TrapsIndex = 1;
-        traps[2] = new Trap(Player.Location.WhisperingStone);
-        traps[2].TrapsIndex = 2;
-
-        homeActionsHandler = new HomeActionsHandler(scanner, player, traps);
-        travelActionsHandler = new TravelActionsHandler(scanner, player, traps);
-
+        trapManager = new TrapManager();
+        
+        homeActionsHandler = new HomeActionsHandler(scanner, player, trapManager);
+        travelActionsHandler = new TravelActionsHandler(scanner, player, trapManager);
+        inputHandler = new InputHandler(scanner);
+        
+        gameState = GameState.HOME;
     }
 
-    public void Start()
-    {
-        // Graphics.DisplayTitle(scanner);
+    public void start() {
+        while (isRunning) {
+            Graphics.clearScreen();
+            Graphics.printStatusBar(player);
 
-        // Graphics.ClearScreen();
-        // System.out.println(Graphics.GetTreeArt());
-        // Graphics.DisplayIntroNarrative(scanner, 80,
-        // Graphics.GetIntroNarrative());
-
-        System.out.println("'c' to continue..."); // make this enter to
-                                                  // continue, needs to
-                                                  // recognize 'any' key
-        scanner.nextLine();
-
-        StartGameLoop();
-    }
-
-    private void StartGameLoop()
-    {
-        // Debug / Testing
-        Animal gameAnimal = new Animal(Animal.AnimalType.Deer, false);
-        player.PickUpAnimal(gameAnimal);
-        player.SubtractHealth(20);
-        // /Debug / Testing
-
-        while (isRunning)
-        {
-            switch (player.GetCurrentLocation()) {
-            case Home:
-                isRunning = homeActionsHandler.PerformHomeActions();
-                break;
-            case Traveling:
-                isRunning = travelActionsHandler.TravelingActions();
-                break;
-            case WhisperingStone:
-                break;
-            case RavenFelds:
-                break;
-            case BlackRiverBend:
-                break;
-
+            switch (gameState) {
+                case HOME:
+                    isRunning = homeActionsHandler.performHomeActions();
+                    break;
+                case TRAVELING:
+                    isRunning = travelActionsHandler.travelingActions();
+                    break;
+                case COMBAT:
+                    isRunning = handleCombat();
+                    break;
+                default:
+                    isRunning = false;
             }
 
+            gameState = determineNextState();
         }
     }
+
+    private boolean handleCombat() {
+        System.out.println("Combat state handling goes here...");
+        return true;  // Placeholder, adjust based on game requirements
+    }
+
+    private GameState determineNextState() {
+        char choice = inputHandler.getNextAction();
+        return switch (choice) {
+            case 'h' -> GameState.HOME;
+            case 't' -> GameState.TRAVELING;
+            case 'c' -> GameState.COMBAT;
+            default -> GameState.HOME;
+        };
+    }
 }
+

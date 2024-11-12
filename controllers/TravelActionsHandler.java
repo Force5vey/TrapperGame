@@ -1,71 +1,58 @@
 package controllers;
 
-import models.*;
-import utils.*;
-
+import models.Player;
+import models.Trap;
+import utils.Graphics;
 import java.util.Scanner;
 
-public class TravelActionsHandler
-{
-    Scanner scanner;
-    Player player;
-    Trap[] traps;
+public class TravelActionsHandler {
 
-    public TravelActionsHandler(Scanner scanner, Player player, Trap[] traps)
-    {
+    private Scanner scanner;
+    private Player player;
+    private TrapManager trapManager;
+
+    public TravelActionsHandler(Scanner scanner, Player player, TrapManager trapManager) {
         this.scanner = scanner;
         this.player = player;
-        this.traps = traps;
-
+        this.trapManager = trapManager;
     }
 
-    public boolean TravelingActions()
-    {
+    public boolean travelingActions() {
+        Trap destinationTrap = trapManager.getTrapByIndex(player.TrapDestinationIndex);
 
-        // traveling needs to count steps, and compare to distance to
-        // destination.
-        // player destination is the enum of destination, need an index to the
-        // trap[] to better acces
-        // instance data.
-        // Way too many different ways player and traps is storing and setting
-        // distance to travel.
+        if (destinationTrap == null) {
+            System.out.println("Invalid travel destination.");
+            return false;
+        }
 
-        int distanceToTravel = traps[player.TrapDestinationIndex].GetDistanceFromHome();
+        int distanceToTravel = destinationTrap.getDistanceFromHome();
         int traveledDistance = 0;
-
         String dots = "You are traveling .";
 
-        for (int i = 0; i <= distanceToTravel; i++)
-        {
-            Graphics.ClearScreen();
-            Graphics.PrintStatusBar(player);
+        for (int i = 0; i <= distanceToTravel; i++) {
+            Graphics.clearScreen();
+            Graphics.printStatusBar(player);
 
             player.TraveledDistance = traveledDistance;
 
-            if (i % 100 == 0)
-            {
-                System.out.println("Travel Distance: [ " + player.TraveledDistance + " / " + player.TotalTravelDistance
-                        + " ]  |  ");
+            if (i % 100 == 0) {
+                System.out.println("Travel Distance: [ " + player.TraveledDistance + " / " + distanceToTravel + " ]");
                 System.out.println();
                 System.out.print(dots);
 
                 dots += " .";
 
-                try
-                {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e)
-                {
-                    e.printStackTrace();
+                try {
+                    Thread.sleep(200);  // Adjust delay as needed for simulation effect
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                 }
             }
-
             traveledDistance++;
         }
 
-        int userInput = scanner.nextInt();
-
-        return true;
+        System.out.println("Arrived at " + destinationTrap.getTrapName());
+        return false;  // End traveling state after reaching destination
     }
-
 }
+
