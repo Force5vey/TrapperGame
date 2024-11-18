@@ -22,14 +22,6 @@ public class TravelActionsHandler
     public boolean TravelingActions()
     {
 
-        // traveling needs to count steps, and compare to distance to
-        // destination.
-        // player destination is the enum of destination, need an index to the
-        // trap[] to better acces
-        // instance data.
-        // Way too many different ways player and traps is storing and setting
-        // distance to travel.
-
         int distanceToTravel = traps[player.TrapDestinationIndex].GetDistanceFromHome();
         int traveledDistance = 0;
 

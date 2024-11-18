@@ -43,12 +43,11 @@ public class GameEngine
 
     public void Start()
     {
-        // Graphics.DisplayTitle(scanner);
+        Graphics.DisplayTitle(scanner);
 
-        // Graphics.ClearScreen();
-        // System.out.println(Graphics.GetTreeArt());
-        // Graphics.DisplayIntroNarrative(scanner, 80,
-        // Graphics.GetIntroNarrative());
+        Graphics.ClearScreen();
+        System.out.println(Graphics.GetTreeArt());
+        Graphics.DisplayIntroNarrative(scanner, 80, Graphics.GetIntroNarrative());
 
         System.out.println("'c' to continue..."); // make this enter to
                                                   // continue, needs to
@@ -65,6 +64,16 @@ public class GameEngine
         player.PickUpAnimal(gameAnimal);
         player.SubtractHealth(20);
         // /Debug / Testing
+
+        // ** Pre Test Loop: While(condition)
+        // This loop will check the boolean value isRunning
+        // prior to executing code in the block.
+        // As of now, this bool is set at class initialization to true
+        // and there are no methods of checking and changing this value
+        // inside GameEngine class. However, I am keeping it as a
+        // pretest so that as my game expands, I can ensure the game loop
+        // doesn't start if some other case results in changing the value
+        // of isRunning to false.
 
         while (isRunning)
         {

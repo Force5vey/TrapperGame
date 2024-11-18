@@ -142,5 +142,4 @@ public class HomeActionsHandler
 
         return true;
     }
-
 }
